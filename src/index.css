@@ -59,6 +59,7 @@ a {
   font-weight: 400;
   border-radius: .5rem;
   border: none;
+  text-transform: uppercase;
   transition: background-color .3s ease;
 }
 .btn:hover {

@@ -1,1 +1,2 @@
-export { default as ProjectsPages } from './projects'
+export { default as Sidebar } from './sidebar';
+export { default as ProjectList } from './projectList';
