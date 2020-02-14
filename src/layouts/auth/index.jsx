@@ -56,7 +56,7 @@ const AuthPage = () => {
                     </div>
                 </form>
                 <Link to="/register" className="enlace-cuenta">
-                    ir a crear cuenta
+                    CREAR CUENTA
                 </Link>
             </div>
         </div>
