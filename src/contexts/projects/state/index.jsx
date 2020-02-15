@@ -2,10 +2,12 @@ import React from 'react';
 import ProjectReducer from '../reducer';
 import ProjectContext from '..';
 import { PROJECT_FORM } from '../../../types/index';
+import { PROJECT_LIST } from '../../../constants/examples';
 
 const ProjectState = (props) => {
     const initial = {
         form: false,
+        projectList: PROJECT_LIST,
     }
     const [state, dispatch] = React.useReducer(ProjectReducer, initial);
 
@@ -20,6 +22,7 @@ const ProjectState = (props) => {
     return (
         <ProjectContext.Provider
             value={{
+                projectList: state.projectList,
                 form: state.form,
                 showForm,
             }}

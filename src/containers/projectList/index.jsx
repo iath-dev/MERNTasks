@@ -1,12 +1,17 @@
 import React from 'react';
 import { Project } from '../../components';
-import { PROJECT_LIST } from '../../constants/examples';
+import ProjectContext from '../../contexts/projects';
 
 const ProjectList = () => {
+
+    const { projectList } = React.useContext(ProjectContext);
+
+    if (projectList.lenght === 0) return null;
+
     return ( 
         <ul className="listado-proyectos">
-            {PROJECT_LIST.map((project) => (
-                <Project name={project.name} />
+            {projectList.map((project) => (
+                <Project name={project.name} key={project.id} />
             ))}
         </ul>
      );
