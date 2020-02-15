@@ -4,7 +4,11 @@ import ProjectContext from '../../contexts/projects';
 
 const ProjectList = () => {
 
-    const { projectList } = React.useContext(ProjectContext);
+    const { projectList, getProjects } = React.useContext(ProjectContext);
+
+    React.useEffect(() => {
+        getProjects();
+    }, [])
 
     if (projectList.lenght === 0) return null;
 
