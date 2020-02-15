@@ -3,11 +3,13 @@ import ProjectContext from '../../contexts/projects';
 
 const NewProject = () => {
 
-    const { form, showForm } = React.useContext(ProjectContext);
+    const { form, showForm, addProject } = React.useContext(ProjectContext);
 
     const [project, setProject] = React.useState({
         name: ''
     });
+
+    const { name } = project;
 
     const handleChange = (event) => {
         setProject({ ...project, name: event.target.value })
@@ -15,13 +17,18 @@ const NewProject = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        // Validación
+        if (name.trim() === '') {
+            return;
+        }
+
+        addProject(project);
+        setProject({ name: '' });
     }
 
     const handleFormToggle = () => {
         showForm();
     }
-
-    const { name } = project;
 
     return ( 
         <React.Fragment>
