@@ -3,7 +3,7 @@ import ProjectContext from '../../contexts/projects';
 
 const NewProject = () => {
 
-    const { form } = React.useContext(ProjectContext);
+    const { form, showForm } = React.useContext(ProjectContext);
 
     const [project, setProject] = React.useState({
         name: ''
@@ -17,6 +17,10 @@ const NewProject = () => {
         event.preventDefault();
     }
 
+    const handleFormToggle = () => {
+        showForm();
+    }
+
     const { name } = project;
 
     return ( 
@@ -24,6 +28,7 @@ const NewProject = () => {
             <button
                 type="button"
                 className="btn btn-block btn-primario"
+                onClick={handleFormToggle}
             >
                 nuevo proyecto
             </button>
