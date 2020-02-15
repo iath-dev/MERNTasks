@@ -3,7 +3,7 @@ import ProjectContext from '../../contexts/projects';
 
 const NewProject = () => {
 
-    const { form, showForm, addProject } = React.useContext(ProjectContext);
+    const { form, errorForm, showForm, addProject, showError } = React.useContext(ProjectContext);
 
     const [project, setProject] = React.useState({
         name: ''
@@ -19,6 +19,7 @@ const NewProject = () => {
         event.preventDefault();
         // Validación
         if (name.trim() === '') {
+            showError();
             return;
         }
 
@@ -56,6 +57,7 @@ const NewProject = () => {
                     />
                 </form>
             )}
+            {errorForm && <p className="mensaje error">El nombre es obligatorio</p>}
         </React.Fragment>
      );
 }

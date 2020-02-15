@@ -1,4 +1,4 @@
-import { PROJECT_FORM, GET_PROJECTS, ADD_PROJECT } from "../../../types";
+import { PROJECT_FORM, GET_PROJECTS, ADD_PROJECT, VALIDATE_FORM } from "../../../types";
 
 const ProjectReducer = (state, action) => {
     switch(action.type) {
@@ -17,6 +17,12 @@ const ProjectReducer = (state, action) => {
                 ...state,
                 projectList: [...state.projectList, action.payload],
                 form: false,
+                errorForm: false,
+            }
+        case VALIDATE_FORM:
+            return {
+                ...state,
+                errorForm: true,
             }
         default:
             return state;
