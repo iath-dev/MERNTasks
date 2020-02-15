@@ -20,7 +20,7 @@ const NewProject = () => {
         <React.Fragment>
             <button
                 type="button"
-                className="btn btn-block btn-primary"
+                className="btn btn-block btn-primario"
             >
                 nuevo proyecto
             </button>
@@ -35,7 +35,7 @@ const NewProject = () => {
                 />
                 <input
                     type="submit"
-                    className="btn btn-primary btn-block"
+                    className="btn btn-primario btn-block"
                     value="Agregar Proyecto"
                 />
             </form>

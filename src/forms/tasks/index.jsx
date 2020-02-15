@@ -15,7 +15,7 @@ const NewTasks = () => {
                 <div className="contenedor-input">
                     <input
                         type="submit"
-                        className="btn btn-primary btn-submit btn-block"
+                        className="btn btn-primario btn-submit btn-block"
                         value="agregar tarea"
                         name="name"
                     />

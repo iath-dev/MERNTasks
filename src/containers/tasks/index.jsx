@@ -18,6 +18,12 @@ const TasksList = () => {
                     ))
                 )}
             </ul>
+            <button
+                type="button"
+                className="btn btn-eliminar"
+            >
+                Eliminar Proyectos &times;
+            </button>
         </div>
      );
 }
