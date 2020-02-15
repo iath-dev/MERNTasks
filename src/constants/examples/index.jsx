@@ -8,3 +8,24 @@ export const PROJECT_LIST = [
         id: '2',
     }
 ]
+
+export const TASKS_LIST = [
+    {
+        name: 'Elegir Plataforma',
+        state: true,
+    },
+    {
+        name: 'Elegir Tema',
+        state: false,
+    },
+    {
+        name: 'Elegir Plataforma de pago',
+        state: false,
+    },
+    {
+        name: 'Elegir Hosting',
+        state: true,
+    },
+]
+
+export default { PROJECT_LIST, TASKS_LIST }

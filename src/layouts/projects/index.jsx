@@ -1,6 +1,7 @@
 import React from 'react';
-import { Sidebar } from '../../containers';
+import { Sidebar, TasksList } from '../../containers';
 import { Header } from '../../components';
+import { NewTasks } from '../../forms';
 
 const ProjectsPages = () => {
     return ( 
@@ -9,8 +10,9 @@ const ProjectsPages = () => {
             <div className="seccion-principal">
                 <Header />
                 <main>
+                    <NewTasks />
                     <div className="contenedor-tareas">
-
+                        <TasksList />
                     </div>
                 </main>
             </div>
