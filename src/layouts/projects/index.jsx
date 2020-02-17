@@ -4,6 +4,7 @@ import { Header } from '../../components';
 import { NewTasks } from '../../forms';
 
 const ProjectsPages = () => {
+
     return ( 
         <div className="contenedor-app">
             <Sidebar />
