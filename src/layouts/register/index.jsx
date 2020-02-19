@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { AlertsContext } from '../../contexts';
 
 const RegisterPage = () => {
 
+    const { alert, showAlert } = React.useContext(AlertsContext);
     const [register, setRegister] = React.useState({
         name: '',
         email: '',
@@ -19,10 +21,33 @@ const RegisterPage = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        if (email.trim() === '' || 
+            password.trim() === '' ||
+            name.trim() === '' ||
+            confirm.trim() === ''
+        ) {
+            showAlert('Todos los campos son obligatorios', 'alerta-error');
+            return;
+        }
+
+        if (password.length < 6) {
+            showAlert('La contraseña debe ser mínimo de 6 caracteres', 'alerta-error');
+            return;
+        }
+
+        if (password !== confirm) {
+            showAlert('Las contraseñas no son iguales', 'alerta-error');
+            return;
+        }
     }
 
     return ( 
         <div className="form-usuario">
+            { alert && (
+                <div className={`alerta ${alert.category}`}>
+                    {alert.msg}
+                </div>
+            ) }
             <div className="contenedor-form sombra-dark">
                 <h1>Crear una cuenta</h1>
                 <form onSubmit={handleSubmit}>
