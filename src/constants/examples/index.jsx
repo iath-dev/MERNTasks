@@ -1,10 +1,10 @@
 export const PROJECT_LIST = [
     {
-        name: 'MiPLSV',
+        title: 'MiPLSV',
         id: '1',
     },
     {
-        name: 'MiPESV',
+        title: 'MiPESV',
         id: '2',
     }
 ]

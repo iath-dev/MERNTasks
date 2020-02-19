@@ -12,7 +12,7 @@ const ProjectList = () => {
         //eslint-disable-next-line
     }, [])
 
-    if (projectList.lenght === 0) return null;
+    if (projectList.length === 0) return null;
 
     return ( 
         <ul className="listado-proyectos">

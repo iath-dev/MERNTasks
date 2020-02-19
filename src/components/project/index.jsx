@@ -19,7 +19,7 @@ const Project = ({ project }) => {
                 className="btn btn-blank"
                 onClick={() => SelectProject(project.id)}
             >
-                {project.name}
+                {project.title}
             </button>
         </li>
      );
