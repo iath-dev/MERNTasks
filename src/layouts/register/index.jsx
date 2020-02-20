@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AlertsContext } from '../../contexts';
+import { AlertsContext, AuthContext } from '../../contexts';
 
 const RegisterPage = () => {
 
+    const { registerUser } = React.useContext(AuthContext)
     const { alert, showAlert } = React.useContext(AlertsContext);
     const [register, setRegister] = React.useState({
         name: '',
@@ -39,6 +40,8 @@ const RegisterPage = () => {
             showAlert('Las contraseñas no son iguales', 'alerta-error');
             return;
         }
+
+        registerUser({ email, name, password });
     }
 
     return ( 
