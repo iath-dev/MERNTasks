@@ -20,11 +20,19 @@ const AuthProvider = (props) => {
             const response = await AxiosClient.post('/api/users', data);
             console.log(response);
             dispatch({
-                type: REGISTER_SUCCESS
+                type: REGISTER_SUCCESS,
+                payload: response.data
             })
         } catch (error) {
+            
+            const alert ={
+                msg: error.response.data.msg,
+                category: 'alerta-error'
+            }
+
             dispatch({
-                type: REGISTER_ERROR
+                type: REGISTER_ERROR,
+                payload: alert,
             })
         }
     }
