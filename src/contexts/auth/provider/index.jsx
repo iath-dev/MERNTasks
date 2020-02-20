@@ -1,8 +1,9 @@
 import React from 'react';
 import AuthContext from '..';
 import AuthReducer from '../reducer';
-import { REGISTER_ERROR, REGISTER_SUCCESS } from '../../../types';
+import { REGISTER_ERROR, REGISTER_SUCCESS, LOGIN_ERROR, GET_USER, LOGIN_SUCCESS } from '../../../types';
 import AxiosClient from '../../../config/axios';
+import tokenAuth from '../../../config/token';
 
 const AuthProvider = (props) => {
 
@@ -18,13 +19,55 @@ const AuthProvider = (props) => {
     const registerUser = async data => {
         try {
             const response = await AxiosClient.post('/api/users', data);
-            console.log(response);
             dispatch({
                 type: REGISTER_SUCCESS,
                 payload: response.data
             })
+
+            authUser();
         } catch (error) {
             
+            const alert ={
+                msg: error.response.data.msg,
+                category: 'alerta-error'
+            }
+
+            dispatch({
+                type: REGISTER_ERROR,
+                payload: alert,
+            })
+        }
+    }
+
+    const authUser = async () => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            tokenAuth(token);
+        }
+        try {
+            const response = await AxiosClient.get('/api/auth')
+            dispatch({
+                type: GET_USER,
+                payload: response.data.user
+            })
+        } catch (error) {
+            console.log(error.response)
+            dispatch({
+                type: LOGIN_ERROR
+            })
+        }
+    }
+
+    const login = async (data) => {
+        try {
+            const response = await AxiosClient.post('/api/auth', data);
+            console.log(response);
+            dispatch({
+                type: LOGIN_SUCCESS,
+                payload: response.data,
+            })
+            authUser();
+        } catch (error) {
             const alert ={
                 msg: error.response.data.msg,
                 category: 'alerta-error'
@@ -45,6 +88,8 @@ const AuthProvider = (props) => {
                 user: state.user,
                 msg: state.msg,
                 registerUser,
+                login,
+                authUser
             }}
         >
             {props.children}

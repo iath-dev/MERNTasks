@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { AlertsContext, AuthContext } from '../../contexts';
 
-const RegisterPage = () => {
+const RegisterPage = (props) => {
 
-    const { registerUser } = React.useContext(AuthContext)
+    const { registerUser, auth, msg } = React.useContext(AuthContext)
     const { alert, showAlert } = React.useContext(AlertsContext);
     const [register, setRegister] = React.useState({
         name: '',
@@ -43,6 +43,16 @@ const RegisterPage = () => {
 
         registerUser({ email, name, password });
     }
+
+    React.useEffect(() => {
+        if (auth) {
+            props.history.replace('/projects')
+        }
+
+        if (msg) {
+            showAlert(msg.msg, msg.category);
+        }
+    }, [auth, msg, props.history])
 
     return ( 
         <div className="form-usuario">

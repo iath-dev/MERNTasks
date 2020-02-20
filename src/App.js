@@ -5,6 +5,12 @@ import ProjectState from './contexts/projects/state';
 import TasksProvider from './contexts/tasks/provider';
 import AlertsProvider from './contexts/alerts/provider';
 import AuthProvider from './contexts/auth/provider';
+import tokenAuth from './config/token';
+
+const token = localStorage.getItem('token');
+if (token) {
+  tokenAuth(token);
+}
 
 function App() {
   return (

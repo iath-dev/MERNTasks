@@ -1,27 +1,52 @@
 /** */
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext, AlertsContext } from '../../contexts';
 
-const AuthPage = () => {
+const AuthPage = (props) => {
 
-    const [auth, setAuth] = React.useState({
+    const { login, msg, auth } = React.useContext(AuthContext);
+    const { alert, showAlert } = React.useContext(AlertsContext);
+    const [data, setData] = React.useState({
         email: '',
         password: '',
     })
 
-    const { email, password } = auth;
+    const { email, password } = data;
 
     const handleChange = (event) => {
         const { name, value } = event.target; 
-        setAuth({ ...auth, [name]: value });
+        setData({ ...data, [name]: value });
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        if (email.trim() === '' || password.trim() === '') {
+            showAlert('Hay campos vacíos', 'alerta-error');
+            return;
+        }
+
+        login({ email, password });
+
     }
+
+    React.useEffect(() => {
+        if (auth) {
+            props.history.replace('/projects')
+        }
+        if (msg) {
+            showAlert(msg.msg, msg.category);
+        }
+    }, [msg, auth])
 
     return ( 
         <div className="form-usuario">
+            { alert && (
+                <div className={`alerta ${alert.category}`}>
+                    {alert.msg}
+                </div>
+            ) }
             <div className="contenedor-form sombra-dark">
                 <h1>Iniciar Sesión</h1>
                 <form onSubmit={handleSubmit}>
