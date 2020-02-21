@@ -1,30 +1,30 @@
 import React from 'react';
-import ProjectContext from '../../contexts/projects';
+import { ProjectContext } from '../../contexts';
 
 const NewProject = () => {
 
     const { form, errorForm, showForm, addProject, showError } = React.useContext(ProjectContext);
 
     const [project, setProject] = React.useState({
-        name: ''
+        title: ''
     });
 
-    const { name } = project;
+    const { title } = project;
 
     const handleChange = (event) => {
-        setProject({ ...project, name: event.target.value })
+        setProject({ ...project, title: event.target.value })
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
         // Validación
-        if (name.trim() === '') {
+        if (title.trim() === '') {
             showError();
             return;
         }
 
         addProject(project);
-        setProject({ name: '' });
+        setProject({ title: '' });
     }
 
     const handleFormToggle = () => {
@@ -47,7 +47,7 @@ const NewProject = () => {
                         className="input-text"
                         placeholder="Nuevo Proyecto"
                         name="name"
-                        value={name}
+                        value={title}
                         onChange={handleChange}
                     />
                     <input

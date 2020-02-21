@@ -1,21 +1,38 @@
 /** */
 import React from 'react';
 import { Task } from '../../components';
-import { TasksContext, ProjectContext } from '../../contexts';
+import { TasksContext, ProjectContext, AlertsContext } from '../../contexts';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const TasksList = () => {
 
-    const { project, deleteProject } = React.useContext(ProjectContext);
+    const { project, deleteProject, msg } = React.useContext(ProjectContext);
     const { projectTasks } = React.useContext(TasksContext)
+    const { showAlert, alert } = React.useContext(AlertsContext);
 
-    if (!project) return <h2>Selecciona un projecto</h2>;
+    React.useEffect(() => {
+        if (msg) {
+            console.log(msg);
+            showAlert(msg, 'alerta-error');
+        }
+    }, [msg]);
+
+    const onDeleteProject = (id) => {
+        deleteProject(id);
+    }
+
+    if (!project) return <h2>Selecciona un proyecto</h2>;
 
     const [actual] = project;
 
     return ( 
         <div>
-            <h2>Proyecto: {actual.name}</h2>
+            { alert && (
+                <div className={`alerta ${alert.category}`}>
+                    {alert.msg}
+                </div>
+            ) }
+            <h2>Proyecto: {actual.title}</h2>
             <ul className="listado-tareas">
                 {projectTasks.length === 0 ? (
                     <li className="tarea">
@@ -34,7 +51,7 @@ const TasksList = () => {
             <button
                 type="button"
                 className="btn btn-eliminar"
-                onClick={() => deleteProject(actual.id)}
+                onClick={() => onDeleteProject(actual._id)}
             >
                 Eliminar Proyectos &times;
             </button>

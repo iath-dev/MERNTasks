@@ -6,6 +6,7 @@ export const ADD_PROJECT = 'ADD_PROJECT';
 export const VALIDATE_FORM = 'VALIDATE_FORM';
 export const SET_PROJECT = 'SET_PROJECT';
 export const DELETE_PROJECT = 'DELETE_PROJECT';
+export const PROJECT_ERROR = 'PROJECT_ERROR';
 
 // Tareas
 export const PROJECT_TASKS = 'PROJECT_TASKS';
