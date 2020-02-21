@@ -6,6 +6,7 @@ import TasksProvider from './contexts/tasks/provider';
 import AlertsProvider from './contexts/alerts/provider';
 import AuthProvider from './contexts/auth/provider';
 import tokenAuth from './config/token';
+import PrivateRoute from './routes/private';
 
 const token = localStorage.getItem('token');
 if (token) {
@@ -22,7 +23,7 @@ function App() {
               <Switch>
                 <Route path="/" component={AuthPage} exact />
                 <Route path="/register" component={RegisterPage} />
-                <Route path="/projects" component={ProjectsPage} />
+                <PrivateRoute path="/projects" component={ProjectsPage} />
               </Switch>
             </BrowserRouter>
           </AuthProvider>

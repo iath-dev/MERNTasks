@@ -1,7 +1,7 @@
 import React from 'react';
 import AuthContext from '..';
 import AuthReducer from '../reducer';
-import { REGISTER_ERROR, REGISTER_SUCCESS, LOGIN_ERROR, GET_USER, LOGIN_SUCCESS } from '../../../types';
+import { REGISTER_ERROR, REGISTER_SUCCESS, LOGIN_ERROR, GET_USER, LOGIN_SUCCESS, LOGOUT } from '../../../types';
 import AxiosClient from '../../../config/axios';
 import tokenAuth from '../../../config/token';
 
@@ -12,6 +12,7 @@ const AuthProvider = (props) => {
         auth: null,
         user: null,
         msg: null,
+        load: true,
     }
 
     const [state, dispatch] = React.useReducer(AuthReducer, initial);
@@ -80,6 +81,12 @@ const AuthProvider = (props) => {
         }
     }
 
+    const logout = () => {
+        dispatch({
+            type: LOGOUT
+        })
+    }
+
     return (
         <AuthContext.Provider
             value={{
@@ -87,9 +94,11 @@ const AuthProvider = (props) => {
                 auth: state.auth,
                 user: state.user,
                 msg: state.msg,
+                load: state.load,
                 registerUser,
                 login,
-                authUser
+                authUser,
+                logout
             }}
         >
             {props.children}

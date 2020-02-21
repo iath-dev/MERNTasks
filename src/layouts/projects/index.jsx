@@ -10,7 +10,7 @@ const ProjectsPages = (props) => {
 
     React.useEffect(() => {
         authUser();
-    }, [])
+    }, []);
 
     return ( 
         <div className="contenedor-app">
