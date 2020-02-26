@@ -10,6 +10,7 @@ const ProjectsPages = (props) => {
 
     React.useEffect(() => {
         authUser();
+        // eslint-disable-next-line
     }, []);
 
     return ( 

@@ -1,16 +1,16 @@
-import { PROJECT_TASKS, ADD_TASKS, VALIDATE_TASK, DELETE_TASK, TASK_STATE, SELECT_TASK, EDIT_TASK } from "../../../types";
+import { PROJECT_TASKS, ADD_TASKS, VALIDATE_TASK, DELETE_TASK, SELECT_TASK, EDIT_TASK } from "../../../types";
 
 const TasksReducer = (state, action) => {
     switch (action.type) {
         case PROJECT_TASKS:
             return {
                 ...state,
-                projectTasks: state.tasks.filter(tasks => tasks.pid === action.payload),
+                projectTasks: action.payload,
             }
         case ADD_TASKS:
             return {
                 ...state,
-                tasks: [action.payload, ...state.tasks],
+                projectTasks: [action.payload, ...state.projectTasks],
                 taskError: false,
             }
         case VALIDATE_TASK:
@@ -21,12 +21,7 @@ const TasksReducer = (state, action) => {
         case DELETE_TASK:
             return {
                 ...state,
-                tasks: state.tasks.filter(tasks => tasks.id !== action.payload),
-            }
-        case TASK_STATE:
-            return {
-                ...state,
-                tasks: state.tasks.map(task => task.id === action.payload.id ? action.payload : task),
+                projectTasks: state.projectTasks.filter(tasks => tasks._id !== action.payload),
             }
         case SELECT_TASK:
             return {
@@ -37,7 +32,7 @@ const TasksReducer = (state, action) => {
             return {
                 ...state,
                 selectedTask: null,
-                tasks: state.tasks.map(task => task.id === action.payload.id ? action.payload : task),
+                projectTasks: state.projectTasks.map(task => task._id === action.payload._id ? action.payload : task),
             }
         default:
             return state;

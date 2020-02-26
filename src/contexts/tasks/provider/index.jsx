@@ -1,13 +1,14 @@
 import React from 'react';
 import TasksContext from '..';
 import TasksReducer from '../reducer';
-import { TASKS_LIST } from '../../../constants/examples';
-import { PROJECT_TASKS, ADD_TASKS, VALIDATE_TASK, DELETE_TASK, TASK_STATE, SELECT_TASK, EDIT_TASK } from '../../../types';
+// import { TASKS_LIST } from '../../../constants/examples';
+import { PROJECT_TASKS, ADD_TASKS, VALIDATE_TASK, DELETE_TASK, SELECT_TASK, EDIT_TASK } from '../../../types';
+import AxiosClient from '../../../config/axios';
 
 const TasksProvider = (props) => {
 
     const initial = {
-        tasks: TASKS_LIST,
+        // tasks: [],
         taskError: false,
         projectTasks: [],
         selectedTask: null,
@@ -17,20 +18,30 @@ const TasksProvider = (props) => {
 
     /**
      * Función que trae las tareas del proyecto
-     * @param {string} id Identificador del proyecto
+     * @param {string} pid Identificador del proyecto
      */
-    const getTasks = (id) => {
-        dispatch({
-            type: PROJECT_TASKS,
-            payload: id,
-        });
+    const getTasks = async (pid) => {
+        try {
+            const response = await AxiosClient.get('/api/tasks', { params: { pid } })
+            dispatch({
+                type: PROJECT_TASKS,
+                payload: response.data.tasks,
+            });
+        } catch (error) {
+            console.log(error.response);
+        }
     }
 
-    const addTask = (task) => {
-        dispatch({
-            type: ADD_TASKS,
-            payload: task,
-        })
+    const addTask = async (task) => {
+        try {
+            const response = await AxiosClient.post('/api/tasks', task);
+            dispatch({
+                type: ADD_TASKS,
+                payload: response.data.task,
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const validateTask = () => {
@@ -39,18 +50,16 @@ const TasksProvider = (props) => {
         })
     }
 
-    const deleteTask = (id) => {
-        dispatch({
-            type: DELETE_TASK,
-            payload: id,
-        })
-    }
-
-    const changeTaskState = (task) => {
-        dispatch({
-            type: TASK_STATE,
-            payload: task,
-        })
+    const deleteTask = async (id, pid) => {
+        try {
+            await AxiosClient.delete(`/api/tasks/${id}`, { params: { pid } });
+            dispatch({
+                type: DELETE_TASK,
+                payload: id,
+            })
+        } catch (error) {
+            console.log(error.response);
+        }
     }
 
     const selectTask = (task) => {
@@ -60,11 +69,17 @@ const TasksProvider = (props) => {
         })
     }
 
-    const editTask = (task) => {
-        dispatch({
-            type: EDIT_TASK,
-            payload: task,
-        })
+    const editTask = async (task) => {
+        try {
+            const response = await AxiosClient.put(`/api/tasks/${task._id}`, task);
+            console.log(response);
+            dispatch({
+                type: EDIT_TASK,
+                payload: task,
+            })
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (
@@ -78,7 +93,6 @@ const TasksProvider = (props) => {
                 addTask,
                 validateTask,
                 deleteTask,
-                changeTaskState,
                 selectTask,
                 editTask,
             }}

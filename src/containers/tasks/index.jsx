@@ -10,11 +10,14 @@ const TasksList = () => {
     const { projectTasks } = React.useContext(TasksContext)
     const { showAlert, alert } = React.useContext(AlertsContext);
 
+    // console.log(projectTasks);
+
     React.useEffect(() => {
         if (msg) {
             console.log(msg);
             showAlert(msg, 'alerta-error');
         }
+        // eslint-disable-next-line
     }, [msg]);
 
     const onDeleteProject = (id) => {
@@ -41,7 +44,7 @@ const TasksList = () => {
                 ) : (
                     <TransitionGroup>
                         {projectTasks.map((task) => (
-                            <CSSTransition key={task.id} timeout={200} classNames="tarea">
+                            <CSSTransition key={task._id} timeout={200} classNames="tarea">
                                 <Task task={task}/>
                             </CSSTransition>
                         ))}

@@ -1,6 +1,5 @@
 import React from 'react';
 import { TasksContext, ProjectContext } from '../../contexts';
-import uuid from 'uuid';
 
 const NewTasks = () => {
 
@@ -50,12 +49,10 @@ const NewTasks = () => {
         if (edition) {
             editTask(task);
         } else {
-            task.pid = actual.id;
-            task.id = uuid.v4();
-            task.state = false;
+            task.pid = actual._id;
             addTask(task);
         }
-        getTasks(actual.id);
+        getTasks(actual._id);
         setTask({ name: '', state: false });
     }
 

@@ -52,6 +52,7 @@ const RegisterPage = (props) => {
         if (msg) {
             showAlert(msg.msg, msg.category);
         }
+        // eslint-disable-next-line
     }, [auth, msg, props.history])
 
     return ( 
@@ -98,7 +99,7 @@ const RegisterPage = (props) => {
                         />
                     </div>
                     <div className="campo-form">
-                        <label htmlFor="confirm">Contraseña</label>
+                        <label htmlFor="confirm">Confirmar</label>
                         <input
                             type="password"
                             id="confirm"

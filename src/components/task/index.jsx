@@ -3,11 +3,11 @@ import { TasksContext } from '../../contexts';
 
 const Task = ({ task }) => {
 
-    const { deleteTask, getTasks, changeTaskState, selectTask } = React.useContext(TasksContext);
-    const { id, pid } = task;
+    const { deleteTask, getTasks, editTask, selectTask } = React.useContext(TasksContext);
+    const { _id, pid } = task;
 
     const handleDelete = () => {
-        deleteTask(id);
+        deleteTask(_id);
         getTasks(pid);
     }
 
@@ -16,7 +16,7 @@ const Task = ({ task }) => {
             ...task,
             state: !task.state,
         }
-        changeTaskState(body);
+        editTask(body);
         getTasks(pid);
     }
 
